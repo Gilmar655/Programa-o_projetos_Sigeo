@@ -6,7 +6,7 @@ Site estático pronto para GitHub Pages. Não exige instalação, conta, compila
 
 1. Extraia o ZIP.
 2. Crie um repositório, por exemplo `Programacao_projetos_Sigeo`.
-3. Envie **o conteúdo da pasta**, incluindo `index.html`, `styles.css`, `app.js`, `excel.js`, `data.js`, `.nojekyll` e a pasta `vendor`, para a raiz do repositório. O index.html deve estar diretamente na raiz, não dentro de outra pasta.
+3. Envie **o conteúdo da pasta**, incluindo `index.html`, `styles.css`, `app.js`, `excel.js`, `charts.js`, `data.js`, `.nojekyll` e a pasta `vendor`, para a raiz do repositório. O index.html deve estar diretamente na raiz, não dentro de outra pasta.
 4. Em **Settings → Pages**, escolha **Deploy from a branch**, branch **main**, pasta **/(root)**, e clique em **Save**.
 5. Aguarde a publicação. O endereço esperado para esse nome de repositório é `https://gilmar655.github.io/Programacao_projetos_Sigeo/`. Esse endereço depende da publicação feita no GitHub.
 
@@ -30,6 +30,24 @@ Use a barra horizontal da tabela para ver todas as colunas. A primeira coluna e 
 
 Em Exportar, escolha **Resultado dos filtros** ou **Base completa**, depois Excel ou CSV. A exportação inclui todas as linhas do resultado, independentemente da paginação, e todas as colunas. Excel gera um `.xlsx` real, com filtro e cabeçalho fixo. Os valores são exportados como texto para preservar códigos, datas apresentadas e zeros iniciais. CSV usa UTF-8 com BOM, separador ponto e vírgula e campos entre aspas. Conteúdo iniciado por =, +, - ou @ recebe apóstrofo de proteção no CSV.
 
+## Gráficos interativos
+
+A seção Gráficos das programações contém cinco gráficos:
+
+- Status da programação: barras com quantidades e percentuais.
+- Tipo de intervenção: distribuição por modalidade.
+- Contratada: todas as contratadas do resultado, em ordem de quantidade.
+- Região: todas as regiões informadas na base.
+- Programações ao longo do tempo: linha com agrupamento por dia ou mês.
+
+Todos usam o mesmo resultado dos filtros da tabela, antes da paginação. A unidade é **programação (registro)**, não projeto distinto. A base original possui 460 registros e 423 projetos distintos.
+
+Clique em uma barra para aplicar o filtro correspondente; clique novamente para removê-lo. Os outros filtros são mantidos. Percentuais usam o total filtrado. As barras começam em zero e são proporcionais à maior quantidade do respectivo gráfico.
+
+O gráfico temporal inclui dias ou meses sem programação registrada entre a primeira e a última data do resultado, com valor zero. Registros sem data válida são informados e excluídos apenas do gráfico temporal. Acima de 730 dias, o agrupamento passa automaticamente para mensal. Passe o mouse sobre um ponto para ver o valor ou abra “Consultar quantidades por período”.
+
+Os gráficos são atualizados após novas importações e funcionam sem bibliotecas externas ou conexão com CDN. Use “Ver base de dados” para acessar a tabela abaixo dos gráficos.
+
 ## Importar e atualizar o site
 
 1. Clique em **Importar Excel / CSV** e selecione um `.xlsx` sem senha ou `.csv` de até 20 MB. Arquivos `.xls` antigos devem ser salvos como `.xlsx` no Excel antes.
@@ -51,6 +69,7 @@ Colunas extras são preservadas. Datas de programação devem ser datas Excel ou
 - `index.html`: página principal.
 - `styles.css`: aparência responsiva.
 - `app.js`: filtros, tabela, relógio, importação e exportação.
+- `charts.js`: gráficos interativos sincronizados com os filtros.
 - `excel.js`: leitura e escrita de tabelas Excel/CSV.
 - `data.js`: base de dados inicial e data de atualização; é o arquivo substituído nas atualizações.
 - `vendor/jszip.min.js`: biblioteca local para arquivos Excel, com licença incluída.

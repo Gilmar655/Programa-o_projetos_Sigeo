@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Programação projetos Sigeo</title>
+  <meta name="description" content="Consulta das programações de projetos Sigeo com filtros e exportação da base de dados.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2300678a'/%3E%3Cpath d='M8 10h16v15H8zM8 15h16M12 7v6M20 7v6' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="vendor/jszip.min.js"></script><script defer src="excel.js"></script><script defer src="data.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="brand"><div class="brand-icon" aria-hidden="true">S</div><div><p class="eyebrow">CONSULTA DE PROGRAMAÇÕES</p><h1>Programação projetos Sigeo</h1></div></div><div class="clockbox"><time id="clock">--:--:--</time><span id="today"></span><small>Horário de Brasília · relógio do dispositivo</small></div></header>
+<main>
+  <section class="sourcebar" aria-label="Informações da base"><div><span class="stamp">Base atualizada em <strong id="updated"></strong></span><span id="source"></span></div><p id="coverage"></p></section>
+  <section class="toolbar" aria-label="Importação e exportação"><div class="actions"><button id="importOpen" class="primary">↑ Importar Excel / CSV</button><label class="inline">Exportar<select id="exportScope"><option value="filtered">Resultado dos filtros</option><option value="all">Base completa</option></select></label><button id="exportXlsx">↓ Excel</button><button id="exportCsv">↓ CSV</button></div><button id="publishData" title="Baixa data.js para substituir no GitHub">Baixar base para publicação</button></section>
+  <section class="metrics" aria-label="Resumo do resultado"><article><span>Programações filtradas</span><strong id="countRows">0</strong><small id="countTotal"></small></article><article><span>Projetos distintos</span><strong id="countProjects">0</strong><small>No resultado atual</small></article><article><span>Liberadas para execução</span><strong id="countReleased">0</strong><small>No resultado atual</small></article><article><span>Contratadas</span><strong id="countCompanies">0</strong><small>No resultado atual</small></article></section>
+  <section class="panel filters"><div class="section-title"><h2>Filtrar programações</h2><button id="clear" class="quiet">Limpar filtros</button></div>
+    <div class="filtergrid"><label class="search">Pesquisar na base<input id="search" type="search" placeholder="Projeto, PowerON, equipamento ou qualquer informação..."></label><label>Data inicial<input id="dateFrom" type="date"></label><label>Data final<input id="dateTo" type="date"></label><label>Região<select id="region"></select></label><label>Status da programação<select id="status"></select></label><label>Contratada<select id="company"></select></label><label>Tipo de intervenção<select id="type"></select></label></div>
+    <details class="morefilters"><summary>Filtros por projeto, PowerON, equipamento e demais colunas</summary><div class="filtergrid" id="columnFilters"></div></details>
+    <div id="activeFilters" class="activefilters" aria-live="polite"></div>
+  </section>
+  <section class="panel data-panel"><div class="section-title tableheading"><div><h2>Base de dados</h2><p id="tableSummary" aria-live="polite"></p></div><label class="inline">Linhas por página<select id="pageSize"><option>25</option><option selected>50</option><option>100</option><option value="all">Todas</option></select></label></div>
+    <p class="tablehint">Todas as colunas da planilha estão disponíveis. Deslize a tabela para os lados. Clique no título de uma coluna para ordenar.</p>
+    <div class="table-scroll" role="region" aria-label="Tabela de programações" tabindex="0"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
+    <div class="pagination"><span id="pageInfo"></span><div><button id="prev">← Anterior</button><button id="next">Próxima →</button></div></div>
+  </section>
+  <footer><span>Dados da planilha importada · sem sincronização automática com o Sigeo.</span><a href="https://gilmar655.github.io/Carteira_Start_Sigeo/" target="_blank" rel="noopener noreferrer">Carteira Start Sigeo ↗</a></footer>
+</main>
+<dialog id="importDialog"><form id="importForm"><div class="section-title"><h2>Importar base de dados</h2><button type="button" id="closeImport" aria-label="Fechar">✕</button></div><p>Selecione uma planilha Excel (.xlsx) ou um CSV. A importação substitui a base desta sessão após a confirmação.</p><label>Arquivo<input id="fileInput" type="file" accept=".xlsx,.csv" required></label><label id="sheetLabel" hidden>Aba da planilha<select id="sheetSelect"></select></label><label>Data de atualização da base<input id="importDate" type="date" required></label><p id="importPreview" role="status">As 11 colunas da base são obrigatórias; colunas adicionais serão preservadas.</p><p class="help">Para atualizar o site para todos, use “Baixar base para publicação” e substitua o arquivo data.js no GitHub.</p><div class="dialogactions"><button type="button" id="cancelImport">Cancelar</button><button type="submit" id="confirmImport" class="primary" disabled>Confirmar importação</button></div></form></dialog>
+<div id="toast" role="status" hidden></div>
+<noscript>Ative o JavaScript no navegador para consultar a base de dados.</noscript>
+</body></html>
